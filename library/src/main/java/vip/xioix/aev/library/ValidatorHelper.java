@@ -2,6 +2,7 @@ package vip.xioix.aev.library;
 
 import android.widget.EditText;
 
+import vip.xioix.aev.library.validator.AndValidator;
 import vip.xioix.aev.library.validator.OrValidator;
 import vip.xioix.aev.library.validator.Validator;
 
@@ -26,6 +27,16 @@ public class ValidatorHelper {
         return this;
     }
 
+    public ValidatorHelper and(Validator validator){
+        if(mValidator == null){
+            mValidator = validator;
+        }else {
+            mValidator = new AndValidator(mValidator,validator);
+        }
+
+        return this;
+    }
+
     public ValidatorHelper or(Validator validator){
         if(mValidator == null){
             mValidator = validator;
@@ -47,10 +58,13 @@ public class ValidatorHelper {
 
     public boolean check(boolean showError){
         boolean result =  mValidator.isValid(mEt);
-        if(showError){
+        if(!result && showError){
             mEt.requestFocus();
             mEt.setError(mValidator.getErrorMessage());
-            if(isNeedFix)mEt.setText(fixText);
+            if(isNeedFix){
+                mEt.setText(fixText);
+                isNeedFix = false;
+            }
         }
         return result;
     }

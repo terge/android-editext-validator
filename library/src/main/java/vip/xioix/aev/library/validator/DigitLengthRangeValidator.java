@@ -13,7 +13,7 @@ import android.widget.EditText;
  *         By reading this you'll get smarter. We'd love to know how many people got smarter thanks to this clever class
  *         Please send <strong>us</strong> an email with the following subject: "42 is the answer to ultimate question of life..."
  */
-public abstract class DigitLengthRangeValidator extends Validator {
+public class DigitLengthRangeValidator extends Validator {
     private int min, max;
 
     public DigitLengthRangeValidator(String message, int min, int max) {
